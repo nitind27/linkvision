@@ -1,22 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-// Clear any stale persisted dark mode on load
-try {
-  const stored = JSON.parse(localStorage.getItem('link-vision-store') || '{}');
-  if (stored?.state?.darkMode) {
-    stored.state.darkMode = false;
-    localStorage.setItem('link-vision-store', JSON.stringify(stored));
-  }
-  // Always start clean — remove dark class
-  document.documentElement.classList.remove('dark');
-} catch (_) {}
+// Apply dark class immediately on module load (before React renders)
+document.documentElement.classList.add('dark');
 
 export const useStore = create(
   persist(
     (set, get) => ({
-      // Theme — default LIGHT
-      darkMode: false,
+      // Theme — default DARK
+      darkMode: true,
       toggleDarkMode: () => {
         const next = !get().darkMode;
         set({ darkMode: next });
@@ -27,7 +19,6 @@ export const useStore = create(
         }
       },
       initTheme: () => {
-        // Always apply stored preference, but default is light
         if (get().darkMode) {
           document.documentElement.classList.add('dark');
         } else {

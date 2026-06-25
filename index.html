@@ -1,10 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>link-vision-admin</title>
+    <title>Link Vision — Admin Panel</title>
+    <script>
+      // Persist theme before paint to avoid flash
+      try {
+        const s = JSON.parse(localStorage.getItem('link-vision-store') || '{}');
+        const dark = s?.state?.darkMode ?? true;
+        if (dark) document.documentElement.classList.add('dark');
+        else document.documentElement.classList.remove('dark');
+      } catch(_) {
+        document.documentElement.classList.add('dark');
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
