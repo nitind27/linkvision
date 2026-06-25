@@ -32,7 +32,7 @@ export default function Repairs() {
 
   const paginated = paginate(filtered, page, PER_PAGE);
 
-  const priorityColor = { Low: 'bg-slate-100 text-slate-600', Medium: 'bg-blue-100 text-blue-600', High: 'bg-orange-100 text-orange-600', Urgent: 'bg-red-100 text-red-600' };
+  const priorityColor = { Low: 'bg-gray-100 text-gray-600', Medium: 'bg-blue-100 text-blue-600', High: 'bg-orange-100 text-orange-600', Urgent: 'bg-red-100 text-red-600' };
 
   const stats = [
     { title: 'Total Requests', value: allRepairs.length, icon: '🔧', gradient: 'bg-gradient-to-br from-blue-500 to-blue-600 text-white', change: 10 },
@@ -57,13 +57,15 @@ export default function Repairs() {
 
       <Card>
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-slate-100 dark:border-slate-700">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-gray-100 dark:border-slate-800">
           <SearchInput value={search} onChange={v => { setSearch(v); setPage(1); }} placeholder="Search repairs..." className="w-full sm:w-64" />
-          <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setPage(1); }} className="text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500">
+          <select value={filterStatus} onChange={e => { setFilterStatus(e.target.value); setPage(1); }}
+            className="text-[12.5px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2 text-gray-600 dark:text-slate-300 outline-none focus:border-blue-400 cursor-pointer transition-all">
             <option value="">All Status</option>
             {['Pending', 'In Progress', 'Completed', 'Cancelled', 'Rejected', 'Waiting for Parts', 'Approval Required'].map(s => <option key={s}>{s}</option>)}
           </select>
-          <select value={filterPriority} onChange={e => { setFilterPriority(e.target.value); setPage(1); }} className="text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500">
+          <select value={filterPriority} onChange={e => { setFilterPriority(e.target.value); setPage(1); }}
+            className="text-[12.5px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2 text-gray-600 dark:text-slate-300 outline-none focus:border-blue-400 cursor-pointer transition-all">
             <option value="">All Priority</option>
             {['Low', 'Medium', 'High', 'Urgent'].map(p => <option key={p}>{p}</option>)}
           </select>
@@ -71,44 +73,44 @@ export default function Repairs() {
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-700/50">
-              <tr className="text-xs text-slate-500 dark:text-slate-400 uppercase">
-                <th className="text-left px-4 py-3 font-semibold">Repair ID</th>
-                <th className="text-left px-4 py-3 font-semibold">Customer</th>
-                <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">Device</th>
-                <th className="text-left px-4 py-3 font-semibold">Issue</th>
-                <th className="text-left px-4 py-3 font-semibold hidden lg:table-cell">Engineer</th>
-                <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">Cost</th>
-                <th className="text-left px-4 py-3 font-semibold">Priority</th>
-                <th className="text-left px-4 py-3 font-semibold">Status</th>
-                <th className="text-left px-4 py-3 font-semibold">Actions</th>
+            <thead className="bg-gray-50 dark:bg-slate-800/50">
+              <tr className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">
+                <th className="text-left px-4 py-3">Repair ID</th>
+                <th className="text-left px-4 py-3">Customer</th>
+                <th className="text-left px-4 py-3 hidden md:table-cell">Device</th>
+                <th className="text-left px-4 py-3">Issue</th>
+                <th className="text-left px-4 py-3 hidden lg:table-cell">Engineer</th>
+                <th className="text-left px-4 py-3 hidden md:table-cell">Cost</th>
+                <th className="text-left px-4 py-3">Priority</th>
+                <th className="text-left px-4 py-3">Status</th>
+                <th className="text-left px-4 py-3">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50 dark:divide-slate-700">
+            <tbody className="divide-y divide-gray-50 dark:divide-slate-800/60">
               {paginated.map((repair, i) => (
                 <motion.tr key={repair.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.04 }}
-                  className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                  className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
                   <td className="px-4 py-3 font-mono text-xs text-blue-600 font-semibold">{repair.id}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <img src={repair.customer.avatar} alt="" className="w-7 h-7 rounded-full object-cover" />
                       <div>
-                        <p className="text-xs font-medium text-slate-700 dark:text-slate-200">{repair.customer.name}</p>
-                        <p className="text-xs text-slate-400">{timeAgo(repair.createdAt)}</p>
+                        <p className="text-[13px] font-medium text-gray-700 dark:text-slate-200">{repair.customer.name}</p>
+                        <p className="text-[12px] text-gray-500 dark:text-slate-400">{timeAgo(repair.createdAt)}</p>
                       </div>
                     </div>
                   </td>
                   <td className="px-4 py-3 hidden md:table-cell">
-                    <p className="text-xs font-medium text-slate-700 dark:text-slate-300">{repair.deviceBrand} {repair.deviceType}</p>
-                    <p className="text-xs text-slate-400">{repair.deviceModel}</p>
+                    <p className="text-[13px] font-medium text-gray-700 dark:text-slate-200">{repair.deviceBrand} {repair.deviceType}</p>
+                    <p className="text-[12px] text-gray-500 dark:text-slate-400">{repair.deviceModel}</p>
                   </td>
                   <td className="px-4 py-3">
-                    <p className="text-xs text-slate-600 dark:text-slate-400 max-w-[140px] truncate">{repair.issue}</p>
+                    <p className="text-[12px] text-gray-500 dark:text-slate-400 max-w-[140px] truncate">{repair.issue}</p>
                   </td>
-                  <td className="px-4 py-3 hidden lg:table-cell text-xs text-slate-500">{repair.engineer}</td>
+                  <td className="px-4 py-3 hidden lg:table-cell text-[12px] text-gray-500 dark:text-slate-400">{repair.engineer}</td>
                   <td className="px-4 py-3 hidden md:table-cell">
-                    <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">{formatCurrency(repair.estimatedCost)}</p>
-                    <p className="text-xs text-slate-400">{repair.paymentStatus}</p>
+                    <p className="text-[13px] font-semibold text-gray-700 dark:text-slate-200">{formatCurrency(repair.estimatedCost)}</p>
+                    <p className="text-[12px] text-gray-500 dark:text-slate-400">{repair.paymentStatus}</p>
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${priorityColor[repair.priority]}`}>{repair.priority}</span>
@@ -116,13 +118,13 @@ export default function Repairs() {
                   <td className="px-4 py-3"><Badge status={repair.status} /></td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-1">
-                      <button onClick={() => setSelectedRepair(repair)} className="p-1.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg text-slate-400 hover:text-blue-600 transition" title="View Details">
+                      <button onClick={() => setSelectedRepair(repair)} className="p-1.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg text-gray-400 hover:text-blue-600 transition" title="View Details">
                         <Eye size={14} />
                       </button>
-                      <button onClick={() => toast.success(`Calling ${repair.customer.phone}`)} className="p-1.5 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg text-slate-400 hover:text-emerald-600 transition" title="Call Customer">
+                      <button onClick={() => toast.success(`Calling ${repair.customer.phone}`)} className="p-1.5 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 rounded-lg text-gray-400 hover:text-emerald-600 transition" title="Call Customer">
                         <Phone size={14} />
                       </button>
-                      <button onClick={() => toast.success('Opening chat...')} className="p-1.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg text-slate-400 hover:text-indigo-600 transition" title="Message">
+                      <button onClick={() => toast.success('Opening chat...')} className="p-1.5 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 rounded-lg text-gray-400 hover:text-indigo-600 transition" title="Message">
                         <MessageCircle size={14} />
                       </button>
                     </div>
@@ -139,24 +141,24 @@ export default function Repairs() {
       {selectedRepair && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelectedRepair(null)} />
-          <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative bg-white dark:bg-slate-800 rounded-2xl w-full max-w-2xl max-h-[88vh] overflow-y-auto shadow-2xl z-10">
-            <div className="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-700">
+          <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative bg-white dark:bg-slate-900 rounded-2xl w-full max-w-2xl max-h-[88vh] overflow-y-auto shadow-2xl z-10">
+            <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-slate-800">
               <div>
-                <h2 className="font-bold text-slate-800 dark:text-white">Repair {selectedRepair.id}</h2>
-                <p className="text-xs text-slate-400 mt-0.5">Created {timeAgo(selectedRepair.createdAt)}</p>
+                <h2 className="font-bold text-gray-800 dark:text-white">Repair {selectedRepair.id}</h2>
+                <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">Created {timeAgo(selectedRepair.createdAt)}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Badge status={selectedRepair.status} />
-                <button onClick={() => setSelectedRepair(null)} className="p-1.5 hover:bg-slate-100 rounded-lg text-slate-500 text-lg">✕</button>
+                <button onClick={() => setSelectedRepair(null)} className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg text-gray-500 text-lg">✕</button>
               </div>
             </div>
             <div className="p-5 space-y-5">
               {/* Customer */}
-              <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+              <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-slate-800/50 rounded-xl">
                 <img src={selectedRepair.customer.avatar} alt="" className="w-10 h-10 rounded-full" />
                 <div className="flex-1">
-                  <p className="font-semibold text-slate-700 dark:text-slate-200">{selectedRepair.customer.name}</p>
-                  <p className="text-xs text-slate-400">{selectedRepair.customer.email}</p>
+                  <p className="font-semibold text-gray-700 dark:text-slate-200">{selectedRepair.customer.name}</p>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">{selectedRepair.customer.email}</p>
                 </div>
                 <div className="flex gap-2">
                   <button onClick={() => toast.success('Calling...')} className="p-2 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl hover:bg-emerald-200 transition"><Phone size={16} /></button>
@@ -176,9 +178,9 @@ export default function Repairs() {
                   ['Estimated Cost', formatCurrency(selectedRepair.estimatedCost)],
                   ['Payment', selectedRepair.paymentStatus],
                 ].map(([label, val]) => (
-                  <div key={label} className="p-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
-                    <p className="text-xs text-slate-400 mb-0.5">{label}</p>
-                    <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">{val}</p>
+                  <div key={label} className="p-3 bg-gray-50 dark:bg-slate-800/50 rounded-xl">
+                    <p className="text-xs text-gray-500 dark:text-slate-400 mb-0.5">{label}</p>
+                    <p className="text-sm font-semibold text-gray-700 dark:text-slate-200">{val}</p>
                   </div>
                 ))}
               </div>
@@ -186,14 +188,14 @@ export default function Repairs() {
               {/* Issue */}
               <div className="p-3 bg-orange-50 dark:bg-orange-900/20 rounded-xl border border-orange-100 dark:border-orange-800">
                 <p className="text-xs text-orange-600 font-medium mb-1">Issue Reported</p>
-                <p className="text-sm text-slate-700 dark:text-slate-300">{selectedRepair.issue}</p>
-                <p className="text-xs text-slate-400 mt-1">{selectedRepair.description}</p>
+                <p className="text-sm text-gray-700 dark:text-slate-300">{selectedRepair.issue}</p>
+                <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">{selectedRepair.description}</p>
               </div>
 
               {/* Before Images */}
               {selectedRepair.beforeImages.length > 0 && (
                 <div>
-                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-2">Before Repair Images</p>
+                  <p className="text-sm font-semibold text-gray-700 dark:text-slate-200 mb-2">Before Repair Images</p>
                   <div className="grid grid-cols-3 gap-2">
                     {selectedRepair.beforeImages.map((img, i) => (
                       <img key={i} src={img} alt="" className="w-full aspect-square object-cover rounded-xl" />
@@ -216,13 +218,13 @@ export default function Repairs() {
 
               {/* Timeline */}
               <div>
-                <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3">Repair Timeline</p>
-                <div className="relative pl-6 space-y-4 border-l-2 border-slate-200 dark:border-slate-700">
+                <p className="text-sm font-semibold text-gray-700 dark:text-slate-200 mb-3">Repair Timeline</p>
+                <div className="relative pl-6 space-y-4 border-l-2 border-gray-200 dark:border-slate-700">
                   {selectedRepair.timeline.map((t, i) => (
                     <div key={i} className="relative">
-                      <div className="absolute -left-[25px] w-4 h-4 rounded-full bg-blue-600 border-2 border-white dark:border-slate-800" />
-                      <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{t.event}</p>
-                      <p className="text-xs text-slate-400">{formatDate(t.time)} · by {t.by}</p>
+                      <div className="absolute -left-[25px] w-4 h-4 rounded-full bg-blue-600 border-2 border-white dark:border-slate-900" />
+                      <p className="text-sm font-medium text-gray-700 dark:text-slate-200">{t.event}</p>
+                      <p className="text-xs text-gray-500 dark:text-slate-400">{formatDate(t.time)} · by {t.by}</p>
                     </div>
                   ))}
                 </div>
@@ -230,7 +232,7 @@ export default function Repairs() {
 
               {/* Actions */}
               <div className="grid grid-cols-2 gap-3">
-                <select className="text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 outline-none col-span-2">
+                <select className="text-[12.5px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2 text-gray-600 dark:text-slate-300 outline-none col-span-2">
                   <option>Update Status</option>
                   {['Pending', 'In Progress', 'Completed', 'Cancelled', 'Waiting for Parts'].map(s => <option key={s}>{s}</option>)}
                 </select>

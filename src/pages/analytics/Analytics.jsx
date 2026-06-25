@@ -28,9 +28,9 @@ export default function Analytics() {
           { label: 'Active Customers', value: customers.filter(c => c.status === 'Active').length, change: '+22%', color: 'text-emerald-600' },
         ].map((kpi, i) => (
           <motion.div key={kpi.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700">
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{kpi.label}</p>
-            <p className="text-2xl font-bold text-slate-800 dark:text-white">{kpi.value}</p>
+            className="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-gray-100 dark:border-slate-800 shadow-sm">
+            <p className="text-[12px] text-gray-500 dark:text-slate-400 mb-1">{kpi.label}</p>
+            <p className="text-2xl font-bold text-gray-800 dark:text-white">{kpi.value}</p>
             <p className={`text-xs font-semibold mt-1 ${kpi.color}`}>{kpi.change} vs last year</p>
           </motion.div>
         ))}
@@ -38,7 +38,7 @@ export default function Analytics() {
 
       {/* Revenue Area Chart */}
       <Card className="p-5">
-        <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-4">Revenue vs Orders Trend</h3>
+        <h3 className="font-semibold text-gray-700 dark:text-slate-200 mb-4">Revenue vs Orders Trend</h3>
         <ResponsiveContainer width="100%" height={280}>
           <AreaChart data={analyticsData.monthlySales}>
             <defs>
@@ -66,7 +66,7 @@ export default function Analytics() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Category Revenue Pie */}
         <Card className="p-5">
-          <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-4">Revenue by Category</h3>
+          <h3 className="font-semibold text-gray-700 dark:text-slate-200 mb-4">Revenue by Category</h3>
           <div className="flex flex-col md:flex-row items-center gap-4">
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
@@ -82,10 +82,10 @@ export default function Analytics() {
                   <div className="w-3 h-3 rounded-full shrink-0" style={{ background: COLORS[i] }} />
                   <div className="flex-1">
                     <div className="flex justify-between text-xs mb-0.5">
-                      <span className="text-slate-600 dark:text-slate-400">{c.name}</span>
-                      <span className="font-medium text-slate-700 dark:text-slate-300">{Math.round(c.value / 10000)}%</span>
+                      <span className="text-gray-600 dark:text-slate-400">{c.name}</span>
+                      <span className="font-medium text-gray-700 dark:text-slate-200">{Math.round(c.value / 10000)}%</span>
                     </div>
-                    <div className="h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full">
+                    <div className="h-1.5 bg-gray-100 dark:bg-slate-700 rounded-full">
                       <div className="h-full rounded-full" style={{ width: `${(c.value / analyticsData.categoryRevenue[0].value) * 100}%`, background: COLORS[i] }} />
                     </div>
                   </div>
@@ -97,17 +97,17 @@ export default function Analytics() {
 
         {/* Top Products */}
         <Card className="p-5">
-          <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-4">Top Selling Products</h3>
+          <h3 className="font-semibold text-gray-700 dark:text-slate-200 mb-4">Top Selling Products</h3>
           <div className="space-y-3">
             {topProducts.map((product, i) => (
               <div key={product.id} className="flex items-center gap-3">
                 <span className="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 text-xs font-bold flex items-center justify-center">{i + 1}</span>
                 <img src={product.thumbnail} alt="" className="w-8 h-8 rounded-xl object-cover" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-slate-700 dark:text-slate-200 truncate">{product.name}</p>
-                  <p className="text-xs text-slate-400">{product.sold} units sold</p>
+                  <p className="text-[13px] font-medium text-gray-700 dark:text-slate-200 truncate">{product.name}</p>
+                  <p className="text-[12px] text-gray-500 dark:text-slate-400">{product.sold} units sold</p>
                 </div>
-                <p className="text-sm font-bold text-slate-700 dark:text-slate-200">{formatCurrency(product.sellingPrice * product.sold)}</p>
+                <p className="text-[13px] font-bold text-gray-700 dark:text-slate-200">{formatCurrency(product.sellingPrice * product.sold)}</p>
               </div>
             ))}
           </div>
@@ -116,7 +116,7 @@ export default function Analytics() {
 
       {/* Daily Orders Bar */}
       <Card className="p-5">
-        <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-4">Daily Revenue — Last 30 Days</h3>
+        <h3 className="font-semibold text-gray-700 dark:text-slate-200 mb-4">Daily Revenue — Last 30 Days</h3>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={analyticsData.dailyOrders}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />

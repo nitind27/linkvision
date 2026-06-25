@@ -68,55 +68,56 @@ export default function Inventory({ lowStockOnly = false }) {
       </div>
 
       <Card>
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-slate-100 dark:border-slate-700">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-gray-100 dark:border-slate-800">
           <SearchInput value={search} onChange={v => { setSearch(v); setPage(1); }} placeholder="Search products..." className="w-full sm:w-64" />
-          <select value={filterCat} onChange={e => { setFilterCat(e.target.value); setPage(1); }} className="text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500">
+          <select value={filterCat} onChange={e => { setFilterCat(e.target.value); setPage(1); }}
+            className="text-[12.5px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2 text-gray-600 dark:text-slate-300 outline-none focus:border-blue-400 cursor-pointer transition-all">
             <option value="">All Categories</option>
             {categories.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-700/50">
-              <tr className="text-xs text-slate-500 dark:text-slate-400 uppercase">
-                <th className="text-left px-4 py-3 font-semibold">Product</th>
-                <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">SKU</th>
-                <th className="text-left px-4 py-3 font-semibold hidden lg:table-cell">Category</th>
-                <th className="text-left px-4 py-3 font-semibold">Stock</th>
-                <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">Min/Max</th>
-                <th className="text-left px-4 py-3 font-semibold hidden lg:table-cell">Value</th>
-                <th className="text-left px-4 py-3 font-semibold">Status</th>
-                <th className="text-left px-4 py-3 font-semibold">Actions</th>
+            <thead className="bg-gray-50 dark:bg-slate-800/50">
+              <tr className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">
+                <th className="text-left px-4 py-3">Product</th>
+                <th className="text-left px-4 py-3 hidden md:table-cell">SKU</th>
+                <th className="text-left px-4 py-3 hidden lg:table-cell">Category</th>
+                <th className="text-left px-4 py-3">Stock</th>
+                <th className="text-left px-4 py-3 hidden md:table-cell">Min/Max</th>
+                <th className="text-left px-4 py-3 hidden lg:table-cell">Value</th>
+                <th className="text-left px-4 py-3">Status</th>
+                <th className="text-left px-4 py-3">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50 dark:divide-slate-700">
+            <tbody className="divide-y divide-gray-50 dark:divide-slate-800/60">
               {paginated.map((product, i) => {
                 const stockStatus = getStockStatus(product);
                 const stockPercent = Math.min((product.stock / product.maxStock) * 100, 100);
                 return (
                   <motion.tr key={product.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}
-                    className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                    className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <img src={product.thumbnail} alt="" className="w-9 h-9 rounded-xl object-cover" />
                         <div>
-                          <p className="font-medium text-slate-700 dark:text-slate-200 text-xs truncate max-w-[160px]">{product.name}</p>
-                          <p className="text-xs text-slate-400">{product.brand}</p>
+                          <p className="text-[13px] font-medium text-gray-700 dark:text-slate-200 truncate max-w-[160px]">{product.name}</p>
+                          <p className="text-[12px] text-gray-500 dark:text-slate-400">{product.brand}</p>
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 hidden md:table-cell text-xs font-mono text-slate-500">{product.sku}</td>
-                    <td className="px-4 py-3 hidden lg:table-cell text-xs text-slate-500">{product.category}</td>
+                    <td className="px-4 py-3 hidden md:table-cell text-[12px] font-mono text-gray-500 dark:text-slate-400">{product.sku}</td>
+                    <td className="px-4 py-3 hidden lg:table-cell text-[12px] text-gray-500 dark:text-slate-400">{product.category}</td>
                     <td className="px-4 py-3">
                       <div>
-                        <p className="font-bold text-slate-700 dark:text-slate-200 text-sm">{product.stock}</p>
-                        <div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full mt-1">
+                        <p className="text-[13px] font-bold text-gray-700 dark:text-slate-200">{product.stock}</p>
+                        <div className="w-16 h-1.5 bg-gray-100 dark:bg-slate-700 rounded-full mt-1">
                           <div className={`h-full rounded-full ${stockPercent > 50 ? 'bg-emerald-500' : stockPercent > 20 ? 'bg-yellow-500' : 'bg-red-500'}`} style={{ width: `${stockPercent}%` }} />
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 hidden md:table-cell text-xs text-slate-400">{product.minStock} / {product.maxStock}</td>
-                    <td className="px-4 py-3 hidden lg:table-cell text-xs font-semibold text-slate-600 dark:text-slate-300">{formatCurrency(product.sellingPrice * product.stock)}</td>
+                    <td className="px-4 py-3 hidden md:table-cell text-[12px] text-gray-500 dark:text-slate-400">{product.minStock} / {product.maxStock}</td>
+                    <td className="px-4 py-3 hidden lg:table-cell text-[13px] font-semibold text-gray-700 dark:text-slate-200">{formatCurrency(product.sellingPrice * product.stock)}</td>
                     <td className="px-4 py-3">
                       <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${stockStatus.color}`}>{stockStatus.label}</span>
                     </td>

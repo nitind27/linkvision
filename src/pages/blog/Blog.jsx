@@ -28,16 +28,16 @@ export default function Blog() {
                   <span className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-600 px-2 py-0.5 rounded-full">{post.category}</span>
                   <Badge status={post.status} />
                 </div>
-                <h3 className="font-semibold text-slate-700 dark:text-slate-200 mb-2 line-clamp-2">{post.title}</h3>
-                <p className="text-xs text-slate-400 mb-3">{post.excerpt}</p>
-                <div className="flex items-center justify-between text-xs text-slate-400 mb-3">
+                <h3 className="font-semibold text-gray-700 dark:text-slate-200 mb-2 line-clamp-2">{post.title}</h3>
+                <p className="text-[12px] text-gray-500 dark:text-slate-400 mb-3">{post.excerpt}</p>
+                <div className="flex items-center justify-between text-[12px] text-gray-500 dark:text-slate-400 mb-3">
                   <span>By {post.author}</span>
                   <span>{formatDate(post.createdAt)}</span>
                   <span>👁 {post.views}</span>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="xs" className="flex-1" icon={<Edit size={12} />} onClick={() => toast.success('Edit post')}>Edit</Button>
-                  <button onClick={() => setPosts(p => p.filter(x => x.id !== post.id))} className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-slate-400 hover:text-red-500 transition"><Trash2 size={14} /></button>
+                  <button onClick={() => setPosts(p => p.filter(x => x.id !== post.id))} className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-400 hover:text-red-500 transition"><Trash2 size={14} /></button>
                 </div>
               </div>
             </Card>

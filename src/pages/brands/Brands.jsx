@@ -31,24 +31,24 @@ export default function Brands() {
               </div>
               <div className="p-4">
                 <div className="flex items-center gap-3 -mt-8 mb-3">
-                  <div className="w-14 h-14 rounded-xl bg-white dark:bg-slate-700 border-2 border-white dark:border-slate-700 shadow overflow-hidden">
+                  <div className="w-14 h-14 rounded-xl bg-white dark:bg-slate-800 border-2 border-white dark:border-slate-800 shadow overflow-hidden">
                     <img src={brand.logo} alt={brand.name} className="w-full h-full object-cover" />
                   </div>
                   <div className="mt-6">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-bold text-slate-700 dark:text-slate-200">{brand.name}</h3>
+                      <h3 className="font-bold text-gray-700 dark:text-slate-200">{brand.name}</h3>
                       {brand.featured && <Star size={12} className="text-yellow-500 fill-yellow-500" />}
                     </div>
                     <Badge status={brand.status} />
                   </div>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mb-3 line-clamp-2">{brand.description}</p>
+                <p className="text-[12px] text-gray-500 dark:text-slate-400 mb-3 line-clamp-2">{brand.description}</p>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-xs text-slate-400">
+                  <div className="flex items-center gap-1 text-[12px] text-gray-500 dark:text-slate-400">
                     <Globe size={12} />
                     <a href={brand.website} target="_blank" rel="noreferrer" className="hover:text-blue-600">{brand.website.replace('https://', '')}</a>
                   </div>
-                  <span className="text-xs text-slate-500">{brand.productCount} products</span>
+                  <span className="text-[12px] text-gray-500 dark:text-slate-400">{brand.productCount} products</span>
                 </div>
                 <div className="flex gap-2 mt-3">
                   <Button variant="outline" size="xs" className="flex-1" icon={<Edit size={12} />} onClick={() => toast.success('Edit brand')}>Edit</Button>

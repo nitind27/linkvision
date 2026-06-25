@@ -37,17 +37,17 @@ export default function Categories() {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-slate-700 dark:text-slate-200 truncate">{cat.icon} {cat.name}</h3>
+                      <h3 className="font-semibold text-gray-700 dark:text-slate-200 truncate">{cat.icon} {cat.name}</h3>
                       {cat.featured && <Star size={12} className="text-yellow-500 fill-yellow-500 shrink-0" />}
                     </div>
                     <div className="flex items-center gap-2 mt-1">
                       <Badge status={cat.status} />
-                      <span className="text-xs text-slate-400">{cat.productCount} products</span>
+                      <span className="text-[12px] text-gray-500 dark:text-slate-400">{cat.productCount} products</span>
                     </div>
                     {children.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-2">
                         {children.map(ch => (
-                          <span key={ch.id} className="text-xs bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 px-2 py-0.5 rounded-lg">
+                          <span key={ch.id} className="text-xs bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 px-2 py-0.5 rounded-lg">
                             {ch.icon} {ch.name}
                           </span>
                         ))}
@@ -55,8 +55,8 @@ export default function Categories() {
                     )}
                   </div>
                   <div className="flex flex-col gap-1 shrink-0">
-                    <button onClick={() => toast.success('Edit form opened')} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-slate-600 transition"><Edit size={14} /></button>
-                    <button onClick={() => setDeleteId(cat.id)} className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-slate-400 hover:text-red-500 transition"><Trash2 size={14} /></button>
+                    <button onClick={() => toast.success('Edit form opened')} className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg text-gray-400 hover:text-gray-600 transition"><Edit size={14} /></button>
+                    <button onClick={() => setDeleteId(cat.id)} className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-400 hover:text-red-500 transition"><Trash2 size={14} /></button>
                   </div>
                 </div>
               </Card>

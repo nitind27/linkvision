@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Eye, Printer, Download, RefreshCw } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import PageHeader from '../../components/ui/PageHeader';
 import SearchInput from '../../components/ui/SearchInput';
@@ -50,23 +49,25 @@ export default function Orders() {
           { label: 'Cancelled', value: allOrders.filter(o => o.deliveryStatus === 'Cancelled').length, color: 'bg-red-500' },
         ].map((s, i) => (
           <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.08 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl p-4 border border-slate-100 dark:border-slate-700">
+            className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-gray-100 dark:border-slate-800 shadow-sm">
             <div className={`w-2 h-8 ${s.color} rounded-full mb-3`} />
-            <p className="text-2xl font-bold text-slate-700 dark:text-white">{s.value}</p>
-            <p className="text-sm text-slate-400 mt-0.5">{s.label}</p>
+            <p className="text-2xl font-bold text-gray-700 dark:text-white">{s.value}</p>
+            <p className="text-sm text-gray-400 mt-0.5">{s.label}</p>
           </motion.div>
         ))}
       </div>
 
       <Card>
         {/* Filters */}
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-slate-100 dark:border-slate-700">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-gray-100 dark:border-slate-800">
           <SearchInput value={search} onChange={v => { setSearch(v); setPage(1); }} placeholder="Order ID or customer..." className="w-full sm:w-64" />
-          <select value={filterPayment} onChange={e => { setFilterPayment(e.target.value); setPage(1); }} className="text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500">
+          <select value={filterPayment} onChange={e => { setFilterPayment(e.target.value); setPage(1); }}
+            className="text-[12.5px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2 text-gray-600 dark:text-slate-300 outline-none focus:border-blue-400 cursor-pointer transition-all">
             <option value="">Payment Status</option>
             {['Paid', 'Pending', 'Failed', 'Refunded'].map(s => <option key={s}>{s}</option>)}
           </select>
-          <select value={filterDelivery} onChange={e => { setFilterDelivery(e.target.value); setPage(1); }} className="text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500">
+          <select value={filterDelivery} onChange={e => { setFilterDelivery(e.target.value); setPage(1); }}
+            className="text-[12.5px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2 text-gray-600 dark:text-slate-300 outline-none focus:border-blue-400 cursor-pointer transition-all">
             <option value="">Delivery Status</option>
             {['Delivered', 'Shipped', 'Processing', 'Cancelled', 'Pending'].map(s => <option key={s}>{s}</option>)}
           </select>
@@ -74,43 +75,43 @@ export default function Orders() {
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-700/50">
-              <tr className="text-xs text-slate-500 dark:text-slate-400 uppercase">
-                <th className="text-left px-4 py-3 font-semibold">Order ID</th>
-                <th className="text-left px-4 py-3 font-semibold">Customer</th>
-                <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">Items</th>
-                <th className="text-left px-4 py-3 font-semibold">Amount</th>
-                <th className="text-left px-4 py-3 font-semibold">Payment</th>
-                <th className="text-left px-4 py-3 font-semibold">Delivery</th>
-                <th className="text-left px-4 py-3 font-semibold hidden lg:table-cell">Date</th>
-                <th className="text-left px-4 py-3 font-semibold">Actions</th>
+            <thead className="bg-gray-50 dark:bg-slate-800/50">
+              <tr className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">
+                <th className="text-left px-4 py-3">Order ID</th>
+                <th className="text-left px-4 py-3">Customer</th>
+                <th className="text-left px-4 py-3 hidden md:table-cell">Items</th>
+                <th className="text-left px-4 py-3">Amount</th>
+                <th className="text-left px-4 py-3">Payment</th>
+                <th className="text-left px-4 py-3">Delivery</th>
+                <th className="text-left px-4 py-3 hidden lg:table-cell">Date</th>
+                <th className="text-left px-4 py-3">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50 dark:divide-slate-700">
+            <tbody className="divide-y divide-gray-50 dark:divide-slate-800/60">
               {paginated.map((order, i) => (
                 <motion.tr key={order.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}
-                  className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                  className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
                   <td className="px-4 py-3 font-mono text-xs text-blue-600 font-semibold">{order.id}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <img src={order.customer.avatar} alt="" className="w-7 h-7 rounded-full object-cover" />
                       <div>
-                        <p className="text-slate-700 dark:text-slate-200 font-medium text-xs">{order.customer.name}</p>
-                        <p className="text-slate-400 text-xs">{order.customer.email}</p>
+                        <p className="text-[13px] text-gray-700 dark:text-slate-200 font-medium">{order.customer.name}</p>
+                        <p className="text-[12px] text-gray-500 dark:text-slate-400">{order.customer.email}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-4 py-3 hidden md:table-cell text-slate-500 text-xs">{order.items.length} item(s)</td>
-                  <td className="px-4 py-3 font-semibold text-slate-700 dark:text-slate-200">{formatCurrency(order.total)}</td>
+                  <td className="px-4 py-3 hidden md:table-cell text-[12px] text-gray-500 dark:text-slate-400">{order.items.length} item(s)</td>
+                  <td className="px-4 py-3 font-semibold text-[13px] text-gray-700 dark:text-slate-200">{formatCurrency(order.total)}</td>
                   <td className="px-4 py-3"><Badge status={order.paymentStatus} /></td>
                   <td className="px-4 py-3"><Badge status={order.deliveryStatus} /></td>
-                  <td className="px-4 py-3 hidden lg:table-cell text-xs text-slate-400">{formatDateTime(order.createdAt)}</td>
+                  <td className="px-4 py-3 hidden lg:table-cell text-[12px] text-gray-500 dark:text-slate-400">{formatDateTime(order.createdAt)}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-1">
-                      <button onClick={() => setSelectedOrder(order)} className="p-1.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg text-slate-400 hover:text-blue-600 transition" title="View">
+                      <button onClick={() => setSelectedOrder(order)} className="p-1.5 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg text-gray-400 hover:text-blue-600 transition" title="View">
                         <Eye size={14} />
                       </button>
-                      <button onClick={() => toast.success('Invoice generated')} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-slate-600 transition" title="Print">
+                      <button onClick={() => toast.success('Invoice generated')} className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg text-gray-400 hover:text-gray-600 transition" title="Print">
                         <Printer size={14} />
                       </button>
                     </div>
@@ -127,72 +128,72 @@ export default function Orders() {
       {selectedOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSelectedOrder(null)} />
-          <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative bg-white dark:bg-slate-800 rounded-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto shadow-2xl z-10">
-            <div className="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-700">
+          <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="relative bg-white dark:bg-slate-900 rounded-2xl w-full max-w-2xl max-h-[85vh] overflow-y-auto shadow-2xl z-10">
+            <div className="flex items-center justify-between p-5 border-b border-gray-100 dark:border-slate-800">
               <div>
-                <h2 className="font-bold text-slate-800 dark:text-white">Order {selectedOrder.id}</h2>
-                <p className="text-xs text-slate-400 mt-0.5">{formatDateTime(selectedOrder.createdAt)}</p>
+                <h2 className="font-bold text-gray-800 dark:text-white">Order {selectedOrder.id}</h2>
+                <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">{formatDateTime(selectedOrder.createdAt)}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Badge status={selectedOrder.deliveryStatus} />
-                <button onClick={() => setSelectedOrder(null)} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-500">✕</button>
+                <button onClick={() => setSelectedOrder(null)} className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg text-gray-500">✕</button>
               </div>
             </div>
             <div className="p-5 space-y-5">
               {/* Customer */}
-              <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+              <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-slate-800/50 rounded-xl">
                 <img src={selectedOrder.customer.avatar} alt="" className="w-10 h-10 rounded-full" />
                 <div>
-                  <p className="font-semibold text-slate-700 dark:text-slate-200">{selectedOrder.customer.name}</p>
-                  <p className="text-xs text-slate-400">{selectedOrder.customer.email} · {selectedOrder.customer.phone}</p>
+                  <p className="font-semibold text-gray-700 dark:text-slate-200">{selectedOrder.customer.name}</p>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">{selectedOrder.customer.email} · {selectedOrder.customer.phone}</p>
                 </div>
               </div>
               {/* Items */}
               <div>
-                <h4 className="font-semibold text-slate-700 dark:text-slate-200 mb-3">Order Items</h4>
+                <h4 className="font-semibold text-gray-700 dark:text-slate-200 mb-3">Order Items</h4>
                 <div className="space-y-2">
                   {selectedOrder.items.map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 p-3 border border-slate-100 dark:border-slate-700 rounded-xl">
+                    <div key={i} className="flex items-center gap-3 p-3 border border-gray-100 dark:border-slate-800 rounded-xl">
                       <img src={item.thumbnail} alt="" className="w-12 h-12 rounded-xl object-cover" />
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{item.name}</p>
-                        <p className="text-xs text-slate-400">Qty: {item.qty} × {formatCurrency(item.price)}</p>
+                        <p className="text-sm font-medium text-gray-700 dark:text-slate-200">{item.name}</p>
+                        <p className="text-xs text-gray-500 dark:text-slate-400">Qty: {item.qty} × {formatCurrency(item.price)}</p>
                       </div>
-                      <p className="font-semibold text-slate-700 dark:text-slate-200">{formatCurrency(item.total)}</p>
+                      <p className="font-semibold text-gray-700 dark:text-slate-200">{formatCurrency(item.total)}</p>
                     </div>
                   ))}
                 </div>
               </div>
               {/* Totals */}
-              <div className="bg-slate-50 dark:bg-slate-700/50 rounded-xl p-4 space-y-2 text-sm">
+              <div className="bg-gray-50 dark:bg-slate-800/50 rounded-xl p-4 space-y-2 text-sm">
                 {[
                   ['Subtotal', selectedOrder.subtotal],
                   ['Shipping', selectedOrder.shipping],
                   ['Tax (18% GST)', selectedOrder.tax],
                   ...(selectedOrder.discount ? [['Discount', -selectedOrder.discount]] : []),
                 ].map(([l, v]) => (
-                  <div key={l} className="flex justify-between text-slate-600 dark:text-slate-400">
+                  <div key={l} className="flex justify-between text-gray-600 dark:text-slate-400">
                     <span>{l}</span>
                     <span className={v < 0 ? 'text-emerald-600' : ''}>{v < 0 ? '-' : ''}{formatCurrency(Math.abs(v))}</span>
                   </div>
                 ))}
-                <div className="flex justify-between font-bold text-slate-800 dark:text-white border-t border-slate-200 dark:border-slate-600 pt-2">
+                <div className="flex justify-between font-bold text-gray-800 dark:text-white border-t border-gray-200 dark:border-slate-700 pt-2">
                   <span>Total</span>
                   <span>{formatCurrency(selectedOrder.total)}</span>
                 </div>
               </div>
               {/* Timeline */}
               <div>
-                <h4 className="font-semibold text-slate-700 dark:text-slate-200 mb-3">Order Timeline</h4>
+                <h4 className="font-semibold text-gray-700 dark:text-slate-200 mb-3">Order Timeline</h4>
                 <div className="space-y-3">
                   {selectedOrder.timeline.map((t, i) => (
                     <div key={i} className="flex items-center gap-3">
-                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shrink-0 ${t.done ? 'bg-blue-600 text-white' : 'bg-slate-100 dark:bg-slate-700 text-slate-400'}`}>
+                      <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs shrink-0 ${t.done ? 'bg-blue-600 text-white' : 'bg-gray-100 dark:bg-slate-800 text-gray-400'}`}>
                         {t.done ? '✓' : i + 1}
                       </div>
                       <div>
-                        <p className={`text-sm font-medium ${t.done ? 'text-slate-700 dark:text-slate-200' : 'text-slate-400'}`}>{t.status}</p>
-                        {t.done && <p className="text-xs text-slate-400">{formatDateTime(t.time)}</p>}
+                        <p className={`text-sm font-medium ${t.done ? 'text-gray-700 dark:text-slate-200' : 'text-gray-400'}`}>{t.status}</p>
+                        {t.done && <p className="text-xs text-gray-500 dark:text-slate-400">{formatDateTime(t.time)}</p>}
                       </div>
                     </div>
                   ))}

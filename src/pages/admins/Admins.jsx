@@ -13,7 +13,7 @@ const roleColor = {
   Manager: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600',
   Editor: 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600',
   Support: 'bg-orange-100 dark:bg-orange-900/30 text-orange-600',
-  Analyst: 'bg-slate-100 dark:bg-slate-700 text-slate-600',
+  Analyst: 'bg-gray-100 dark:bg-slate-800 text-gray-600',
 };
 
 export default function Admins() {
@@ -28,8 +28,8 @@ export default function Admins() {
               <div className="flex items-start gap-3 mb-4">
                 <img src={admin.avatar} alt={admin.name} className="w-12 h-12 rounded-xl object-cover" />
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-semibold text-slate-700 dark:text-slate-200 truncate">{admin.name}</h3>
-                  <p className="text-xs text-slate-400 truncate">{admin.email}</p>
+                  <h3 className="font-semibold text-gray-700 dark:text-slate-200 truncate">{admin.name}</h3>
+                  <p className="text-[12px] text-gray-500 dark:text-slate-400 truncate">{admin.email}</p>
                   <span className={`text-xs font-medium px-2 py-0.5 rounded-full mt-1 inline-block ${roleColor[admin.role]}`}>{admin.role}</span>
                 </div>
                 <Badge status={admin.status} />
@@ -41,13 +41,13 @@ export default function Admins() {
                   ['Customers', admin.permissions.customers],
                   ['Settings', admin.permissions.settings],
                 ].map(([label, has]) => (
-                  <div key={label} className={`flex items-center gap-1.5 p-2 rounded-lg ${has ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600' : 'bg-slate-50 dark:bg-slate-700/50 text-slate-400'}`}>
+                  <div key={label} className={`flex items-center gap-1.5 p-2 rounded-lg ${has ? 'bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600' : 'bg-gray-50 dark:bg-slate-800/50 text-gray-400'}`}>
                     <Shield size={10} />
                     <span>{label}</span>
                   </div>
                 ))}
               </div>
-              <p className="text-xs text-slate-400 mb-3">Last login: {timeAgo(admin.lastLogin)}</p>
+              <p className="text-[12px] text-gray-500 dark:text-slate-400 mb-3">Last login: {timeAgo(admin.lastLogin)}</p>
               <div className="flex gap-2">
                 <Button variant="outline" size="xs" className="flex-1" icon={<Edit size={12} />} onClick={() => toast.success('Edit admin')}>Edit</Button>
                 <Button variant="danger" size="xs" icon={<Trash2 size={12} />} onClick={() => toast.error('Admin removed')}>Remove</Button>

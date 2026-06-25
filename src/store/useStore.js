@@ -1,25 +1,42 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+// Clear any stale persisted dark mode on load
+try {
+  const stored = JSON.parse(localStorage.getItem('link-vision-store') || '{}');
+  if (stored?.state?.darkMode) {
+    stored.state.darkMode = false;
+    localStorage.setItem('link-vision-store', JSON.stringify(stored));
+  }
+  // Always start clean — remove dark class
+  document.documentElement.classList.remove('dark');
+} catch (_) {}
+
 export const useStore = create(
   persist(
     (set, get) => ({
-      // Theme
+      // Theme — default LIGHT
       darkMode: false,
       toggleDarkMode: () => {
         const next = !get().darkMode;
         set({ darkMode: next });
-        if (next) document.documentElement.classList.add('dark');
-        else document.documentElement.classList.remove('dark');
+        if (next) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
       },
       initTheme: () => {
-        if (get().darkMode) document.documentElement.classList.add('dark');
+        // Always apply stored preference, but default is light
+        if (get().darkMode) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
       },
 
       // Sidebar
-      sidebarOpen: true,
       sidebarCollapsed: false,
-      toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
       collapseSidebar: () => set((s) => ({ sidebarCollapsed: !s.sidebarCollapsed })),
 
       // Auth
@@ -34,13 +51,18 @@ export const useStore = create(
       login: (user) => set({ user, isAuthenticated: true }),
       logout: () => set({ isAuthenticated: false }),
 
-      // Notifications count
+      // Notifications
       unreadCount: 5,
       setUnreadCount: (n) => set({ unreadCount: n }),
     }),
     {
       name: 'link-vision-store',
-      partialize: (s) => ({ darkMode: s.darkMode, user: s.user, isAuthenticated: s.isAuthenticated }),
+      partialize: (s) => ({
+        darkMode: s.darkMode,
+        user: s.user,
+        isAuthenticated: s.isAuthenticated,
+        sidebarCollapsed: s.sidebarCollapsed,
+      }),
     }
   )
 );

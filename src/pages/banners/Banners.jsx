@@ -36,13 +36,13 @@ export default function Banners() {
               </div>
               <div className="p-3 flex items-center justify-between">
                 <div>
-                  <p className="text-xs text-slate-500">Button: <span className="font-medium text-slate-700 dark:text-slate-300">{banner.buttonText}</span></p>
-                  <p className="text-xs text-slate-400">Ends: {formatDate(banner.endDate)}</p>
+                  <p className="text-[12px] text-gray-500 dark:text-slate-400">Button: <span className="font-medium text-gray-700 dark:text-slate-200">{banner.buttonText}</span></p>
+                  <p className="text-[12px] text-gray-500 dark:text-slate-400">Ends: {formatDate(banner.endDate)}</p>
                 </div>
                 <div className="flex gap-1">
-                  <button onClick={() => toast.success('Preview opened')} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-slate-600 transition"><Eye size={14} /></button>
-                  <button onClick={() => toast.success('Edit form opened')} className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-slate-600 transition"><Edit size={14} /></button>
-                  <button onClick={() => setDeleteId(banner.id)} className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-slate-400 hover:text-red-500 transition"><Trash2 size={14} /></button>
+                  <button onClick={() => toast.success('Preview opened')} className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg text-gray-400 hover:text-gray-600 transition"><Eye size={14} /></button>
+                  <button onClick={() => toast.success('Edit form opened')} className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg text-gray-400 hover:text-gray-600 transition"><Edit size={14} /></button>
+                  <button onClick={() => setDeleteId(banner.id)} className="p-1.5 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg text-gray-400 hover:text-red-500 transition"><Trash2 size={14} /></button>
                 </div>
               </div>
             </Card>

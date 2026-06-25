@@ -54,45 +54,46 @@ export default function Payments() {
         {stats.map((s, i) => <StatCard key={s.title} {...s} index={i} />)}
       </div>
       <Card>
-        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-slate-100 dark:border-slate-700">
+        <div className="flex flex-wrap items-center gap-3 p-4 border-b border-gray-100 dark:border-slate-800">
           <SearchInput value={search} onChange={v => { setSearch(v); setPage(1); }} placeholder="Search payments..." className="w-full sm:w-64" />
-          <select value={filter} onChange={e => { setFilter(e.target.value); setPage(1); }} className="text-sm border border-slate-200 dark:border-slate-600 rounded-xl px-3 py-2 bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 outline-none focus:ring-2 focus:ring-blue-500">
+          <select value={filter} onChange={e => { setFilter(e.target.value); setPage(1); }}
+            className="text-[12.5px] bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl px-3 py-2 text-gray-600 dark:text-slate-300 outline-none focus:border-blue-400 cursor-pointer transition-all">
             <option value="">All Status</option>
             {['Paid', 'Pending', 'Failed', 'Refunded'].map(s => <option key={s}>{s}</option>)}
           </select>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 dark:bg-slate-700/50">
-              <tr className="text-xs text-slate-500 dark:text-slate-400 uppercase">
-                <th className="text-left px-4 py-3 font-semibold">Payment ID</th>
-                <th className="text-left px-4 py-3 font-semibold">Customer</th>
-                <th className="text-left px-4 py-3 font-semibold hidden md:table-cell">Order</th>
-                <th className="text-left px-4 py-3 font-semibold">Amount</th>
-                <th className="text-left px-4 py-3 font-semibold hidden lg:table-cell">Method</th>
-                <th className="text-left px-4 py-3 font-semibold">Status</th>
-                <th className="text-left px-4 py-3 font-semibold hidden lg:table-cell">Date</th>
-                <th className="text-left px-4 py-3 font-semibold">Action</th>
+            <thead className="bg-gray-50 dark:bg-slate-800/50">
+              <tr className="text-[11px] font-semibold text-gray-400 uppercase tracking-wide">
+                <th className="text-left px-4 py-3">Payment ID</th>
+                <th className="text-left px-4 py-3">Customer</th>
+                <th className="text-left px-4 py-3 hidden md:table-cell">Order</th>
+                <th className="text-left px-4 py-3">Amount</th>
+                <th className="text-left px-4 py-3 hidden lg:table-cell">Method</th>
+                <th className="text-left px-4 py-3">Status</th>
+                <th className="text-left px-4 py-3 hidden lg:table-cell">Date</th>
+                <th className="text-left px-4 py-3">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-50 dark:divide-slate-700">
+            <tbody className="divide-y divide-gray-50 dark:divide-slate-800/60">
               {paginated.map((pay, i) => (
                 <motion.tr key={pay.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}
-                  className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                  className="hover:bg-gray-50 dark:hover:bg-slate-800/40 transition-colors">
                   <td className="px-4 py-3 font-mono text-xs text-blue-600 font-semibold">{pay.id}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       <img src={pay.customer.avatar} alt="" className="w-7 h-7 rounded-full" />
-                      <span className="text-xs text-slate-700 dark:text-slate-200 font-medium">{pay.customer.name}</span>
+                      <span className="text-[13px] text-gray-700 dark:text-slate-200 font-medium">{pay.customer.name}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 hidden md:table-cell text-xs font-mono text-slate-500">{pay.orderId}</td>
-                  <td className="px-4 py-3 font-bold text-slate-700 dark:text-slate-200">{formatCurrency(pay.amount)}</td>
+                  <td className="px-4 py-3 hidden md:table-cell text-[12px] font-mono text-gray-500 dark:text-slate-400">{pay.orderId}</td>
+                  <td className="px-4 py-3 font-bold text-[13px] text-gray-700 dark:text-slate-200">{formatCurrency(pay.amount)}</td>
                   <td className="px-4 py-3 hidden lg:table-cell">
-                    <div className="flex items-center gap-1.5 text-xs text-slate-500"><CreditCard size={12} />{pay.method}</div>
+                    <div className="flex items-center gap-1.5 text-[12px] text-gray-500 dark:text-slate-400"><CreditCard size={12} />{pay.method}</div>
                   </td>
                   <td className="px-4 py-3"><Badge status={pay.status} /></td>
-                  <td className="px-4 py-3 hidden lg:table-cell text-xs text-slate-400">{formatDateTime(pay.date)}</td>
+                  <td className="px-4 py-3 hidden lg:table-cell text-[12px] text-gray-500 dark:text-slate-400">{formatDateTime(pay.date)}</td>
                   <td className="px-4 py-3"><button onClick={() => toast.success('Invoice downloaded')} className="text-xs text-blue-600 hover:underline font-medium flex items-center gap-1"><Download size={12} />Invoice</button></td>
                 </motion.tr>
               ))}
