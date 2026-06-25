@@ -1,14 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-// Apply dark class immediately on module load (before React renders)
-document.documentElement.classList.add('dark');
-
 export const useStore = create(
   persist(
     (set, get) => ({
-      // Theme — default DARK
+      // Default: DARK MODE
       darkMode: true,
+
       toggleDarkMode: () => {
         const next = !get().darkMode;
         set({ darkMode: next });
@@ -18,8 +16,10 @@ export const useStore = create(
           document.documentElement.classList.remove('dark');
         }
       },
+
       initTheme: () => {
-        if (get().darkMode) {
+        const dark = get().darkMode;
+        if (dark) {
           document.documentElement.classList.add('dark');
         } else {
           document.documentElement.classList.remove('dark');
@@ -48,6 +48,7 @@ export const useStore = create(
     }),
     {
       name: 'link-vision-store',
+      version: 2, // bump version — forces old cached light-mode state to reset
       partialize: (s) => ({
         darkMode: s.darkMode,
         user: s.user,

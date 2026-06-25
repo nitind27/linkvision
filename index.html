@@ -6,15 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Link Vision — Admin Panel</title>
     <script>
-      // Persist theme before paint to avoid flash
-      try {
-        const s = JSON.parse(localStorage.getItem('link-vision-store') || '{}');
-        const dark = s?.state?.darkMode ?? true;
-        if (dark) document.documentElement.classList.add('dark');
-        else document.documentElement.classList.remove('dark');
-      } catch(_) {
-        document.documentElement.classList.add('dark');
-      }
+      // Run before React — apply correct theme with no flash
+      (function() {
+        try {
+          var raw = localStorage.getItem('link-vision-store');
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            // If user has explicitly set light mode, honour it
+            if (parsed && parsed.state && parsed.state.darkMode === false) {
+              document.documentElement.classList.remove('dark');
+              return;
+            }
+          }
+          // Default: dark mode
+          document.documentElement.classList.add('dark');
+        } catch(e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
     </script>
   </head>
   <body>
